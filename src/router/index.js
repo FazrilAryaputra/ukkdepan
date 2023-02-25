@@ -28,7 +28,23 @@ const routes = [
         component: function () {
           return import('../views/KamarView.vue')
         }
-      }
+      },
+      {
+        path: '/tipekamar',
+        name: 'tipekamar',
+       
+        component: function () {
+          return import('../views/TipekamarView.vue')
+        }
+      },
+      {
+        path: '/user',
+        name: 'user',
+       
+        component: function () {
+          return import('../views/UserView.vue')
+        }
+      },
     ]
   },
   {

@@ -47,6 +47,12 @@
             <nav-item icon="fas fa-solid fa-bed" link="/kamar">
                 Kamar
             </nav-item>
+            <nav-item icon="fas fa-solid fa-building" link="/tipekamar">
+                Tipe Kamar
+              </nav-item>
+              <nav-item icon="fas fa-solid fa-user" link="/user">
+                User
+              </nav-item>
             </ul>
         </nav>
       </div>
