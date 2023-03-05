@@ -45,6 +45,14 @@ const routes = [
           return import('../views/UserView.vue')
         }
       },
+      {
+        path: '/tambah_tipe_kamar',
+        name: 'tambahtipekamar',
+       
+        component: function () {
+          return import('../views/TambahTipeKamarView.vue')
+        }
+      },
     ]
   },
   {
