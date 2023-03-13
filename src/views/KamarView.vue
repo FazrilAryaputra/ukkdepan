@@ -72,7 +72,7 @@
 </template>
   
 <script>
-import axios from "../lib/axios";
+import axios from "@/lib/axios";
 
 export default {
   data: function () {

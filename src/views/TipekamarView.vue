@@ -1,13 +1,13 @@
 <template>
-    <content-header title="Tipe Kamar"/>
-    <content>
-      <div class="row">
-        <div class="col-6">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">tipekamar</h3>
-            </div>
-            <div class="card-body">
+  <content-header title="Tipe Kamar" />
+  <content>
+    <div class="row">
+      <div class="col-6">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">tipekamar</h3>
+          </div>
+          <div class="card-body">
             <table class="table table-responsive table-striped table-hover">
               <thead>
                 <tr>
@@ -20,7 +20,10 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(lr, index) in list_room_type" :key="lr.room_type_id">
+                <tr
+                  v-for="(lr, index) in list_room_type"
+                  :key="lr.room_type_id"
+                >
                   <td>{{ index + 1 }}</td>
                   <td>{{ lr.room_type_name }}</td>
                   <td>{{ lr.price }}</td>
@@ -62,7 +65,9 @@
             </table>
           </div>
           <div class="card-footer">
-            <router-link class="btn btn-sm btn-success" to="tambah_tipe_kamar" >tambah kamar</router-link>
+            <router-link class="btn btn-sm btn-success" to="tambah_tipe_kamar"
+              >tambah kamar</router-link
+            >
             <!-- <button class="btn btn-sm btn-success">
               <i class="fas fa-plus fa-fw"></i>
               Tambah Kamar
@@ -75,7 +80,7 @@
 </template>
   
 <script>
-import axios from "../lib/axios";
+import axios from "@/lib/axios";
 
 export default {
   data: function () {

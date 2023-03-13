@@ -3,33 +3,64 @@
   <content>
     <div class="row">
       <div class="col-6">
-        <form class="card" method="POST" enctype="multipart/form-data">
+        <form
+          class="card"
+          method="POST"
+          @submit.prevent="() => save(data)"
+          enctype="multipart/form-data"
+        >
           <div class="card-header">
             <h3 class="card-title">Tambah Tipe Kamar</h3>
           </div>
           <div>
-              <div class="m-3">
-                  <label for="room_type_name" class="form-label">Nama Tipe Kamar</label>
-                  <input type="text" name="room_type_name" id="room_type_name" class="form-control" />
-              </div>
-              
-              <div class="m-3">
-                  <label for="price" class="form-label">Harga</label>
-                  <input type="text" name="price" id="price" class="form-control" />
-              </div>
-              
-              <div class="m-3">
-                  <label for="description" class="form-label">Deskripsi</label>
-                  <textarea name="description" id="description" cols="30" rows="10" class="form-control"></textarea>
-              </div>
+            <div class="m-3">
+              <label for="room_type_name" class="form-label"
+                >Nama Tipe Kamar</label
+              >
+              <input
+                type="text"
+                v-model="data.room_type_name"
+                id="room_type_name"
+                class="form-control"
+              />
+            </div>
 
-              <div class="m-3">
-                  <label for="image" class="form-label">Foto</label>
-                  <input type="file" accept="image/*" name="image" id="image" class="form-control" />
-              </div>
+            <div class="m-3">
+              <label for="price" class="form-label">Harga</label>
+              <input
+                type="text"
+                v-model="data.price"
+                id="price"
+                class="form-control"
+              />
+            </div>
+
+            <div class="m-3">
+              <label for="description" class="form-label">Deskripsi</label>
+              <textarea
+                v-model="data.description"
+                id="description"
+                cols="30"
+                rows="10"
+                class="form-control"
+              ></textarea>
+            </div>
+
+            <div class="m-3">
+              <label for="image" class="form-label">Foto</label>
+              <input
+                type="file"
+                accept="image/*"
+                v-on:change="(event) => imageHandler(event.target.files[0])"
+                id="image"
+                class="form-control"
+              />
+            </div>
           </div>
           <div class="card-footer">
-            <button type="submit" class="btn btn-success">Tambah Tipe Kamar</button>
+            <button type="submit" class="btn btn-success" @click="save()">
+              Tambah Tipe Kamar
+            </button>
           </div>
         </form>
       </div>
@@ -38,7 +69,7 @@
 </template>
 
 <script>
-import axios from "../lib/axios";
+import axios from "@/lib/axios";
 
 /**
  * Contoh axios upload image
@@ -57,12 +88,55 @@ import axios from "../lib/axios";
  * .catch((err) => console.log(err)); // harus di console dulu biar tau kalo ada error, kalo gaada ya yauda bebas mau dijadiiin apa, misal notifikasi.
  */
 
-export default{
-    data() {
-        return{
-
-        }
-    }
-}
-
+export default {
+  name: "form tipe kamar",
+  data() {
+    return {
+      data: {
+        room_type_name: "",
+        price: "",
+        description: "",
+        image: "",
+      },
+    };
+  },
+  methods: {
+    imageHandler(event) {
+      this.data.image = event;
+    },
+    async save(data) {
+      let token =
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE2NzgxOTE5MTEsImV4cCI6MTY3ODE5NTUxMSwibmJmIjoxNjc4MTkxOTExLCJqdGkiOiJkYkYyaFZyUE91eVNjM2VWIiwic3ViIjoiMSIsInBydiI6ImY2NGQ0OGE2Y2VjN2JkZmE3ZmJmODk5NDU0YjQ4OGIzZTQ2MjUyMGEifQ.PUUjpabyIdaqpUqZvbl1C8j31cpGmoYZpp38TZb8-3A";
+      await axios
+        .post("/roomtype", this.data, {
+          headers: {
+            Authorization: `Bearer ${token}`, // perlu pake buanget kalo memang endpoint API pake auth.
+            "Content-Type": "multipart/form-data", // ini penting buat upload/update/delete image!
+            "Content-Type": "application/json", // ini bisa dipake kalo memang ga memerlukan upload/update/delete image.
+          },
+        })
+        .then(() => {
+          console.log(this.$data);
+          this.$router.push("/tipekamar");
+        })
+        .catch((err) => console.log(err));
+    },
+    Save: function () {
+      let token = {
+        headers: {
+          Authorization: "Bearer" + this.$cookies.get("Authorization"),
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      let form = new FormData();
+      form.append("room_type_name", this.room_type_name);
+      form.append("price", this.price);
+      form.append("description", this.desc);
+      form.append("image", this.image);
+      axios.post(api_url + "/roomtype", form, token).then((response) => {
+        this.getData();
+      });
+    },
+  },
+};
 </script>

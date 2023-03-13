@@ -7,8 +7,10 @@
     </li>
 </template>
 
+
 <script>
 export default {
+    name: "Navbar",
     props:{
         icon: {
             type: String,

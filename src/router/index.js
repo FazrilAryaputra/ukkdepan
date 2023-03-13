@@ -5,11 +5,11 @@ import LoginView from '../views/LoginView.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     component: MainLayout,
     children : [
       {
-        path: '',
+        path: '/home',
         name: 'home',
         component: HomeView
       },
@@ -56,7 +56,7 @@ const routes = [
     ]
   },
   {
-    path: '/login',
+    path: '/',
     name: 'login',
     component: LoginView,
   }
