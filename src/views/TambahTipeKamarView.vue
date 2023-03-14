@@ -28,7 +28,7 @@
             <div class="m-3">
               <label for="price" class="form-label">Harga</label>
               <input
-                type="text"
+                type="number"
                 v-model="data.price"
                 id="price"
                 class="form-control"
@@ -103,40 +103,46 @@ export default {
   methods: {
     imageHandler(event) {
       this.data.image = event;
+      console.log(this.data.image);
     },
     async save(data) {
-      let token =
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL3VzZXIvbG9naW4iLCJpYXQiOjE2NzgxOTE5MTEsImV4cCI6MTY3ODE5NTUxMSwibmJmIjoxNjc4MTkxOTExLCJqdGkiOiJkYkYyaFZyUE91eVNjM2VWIiwic3ViIjoiMSIsInBydiI6ImY2NGQ0OGE2Y2VjN2JkZmE3ZmJmODk5NDU0YjQ4OGIzZTQ2MjUyMGEifQ.PUUjpabyIdaqpUqZvbl1C8j31cpGmoYZpp38TZb8-3A";
+      let token = localStorage.getItem("Authorization");
+
+      let form = new FormData();
+      form.append("room_type_name", data.room_type_name);
+      form.append("price", data.price);
+      form.append("description", data.description);
+      form.append("image", data.image);
+
       await axios
-        .post("/roomtype", this.data, {
+        .post("/roomtype", form, {
           headers: {
             Authorization: `Bearer ${token}`, // perlu pake buanget kalo memang endpoint API pake auth.
             "Content-Type": "multipart/form-data", // ini penting buat upload/update/delete image!
-            "Content-Type": "application/json", // ini bisa dipake kalo memang ga memerlukan upload/update/delete image.
           },
         })
-        .then(() => {
-          console.log(this.$data);
+        .then((result) => {
+          console.log(result.data);
           this.$router.push("/tipekamar");
         })
         .catch((err) => console.log(err));
     },
-    Save: function () {
-      let token = {
-        headers: {
-          Authorization: "Bearer" + this.$cookies.get("Authorization"),
-          "Content-Type": "multipart/form-data",
-        },
-      };
-      let form = new FormData();
-      form.append("room_type_name", this.room_type_name);
-      form.append("price", this.price);
-      form.append("description", this.desc);
-      form.append("image", this.image);
-      axios.post(api_url + "/roomtype", form, token).then((response) => {
-        this.getData();
-      });
-    },
+    // save: function () {
+    //   let token = {
+    //     headers: {
+    //       Authorization: "Bearer" + localStorage.getItem("Authorization"),
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   };
+    //   let form = new FormData();
+    //   form.append("room_type_name", this.room_type_name);
+    //   form.append("price", this.price);
+    //   form.append("description", this.desc);
+    //   form.append("image", this.image);
+    //   axios.post("/roomtype", form, token).then((response) => {
+    //     this.$router.push('/tipekamar')
+    //   });
+    // },
   },
 };
 </script>

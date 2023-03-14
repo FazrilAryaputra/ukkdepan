@@ -38,7 +38,7 @@
             role="menu"
             data-accordion="false"
           >
-            <nav-item icon="fas fa-home" link="/">
+            <nav-item icon="fas fa-home" link="/home">
                 Home
             </nav-item>
             <nav-item icon="fas fa-info-circle" link="/about">

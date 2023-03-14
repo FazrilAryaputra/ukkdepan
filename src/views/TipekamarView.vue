@@ -29,20 +29,11 @@
                   <td>{{ lr.price }}</td>
                   <td>{{ lr.description }}</td>
                   <td>
-                    <!-- <img
-                      v-if="ls.image !== null"
-                      :src="api_url2 + '/images/' + ls.image"
+                    <img
+                      v-if="lr.image !== null"
+                      :src="'http://localhost:8000/roomtype_image/' + lr.image"
                       width="150"
                     />
-                    <button
-                      v-else
-                      class="btn btn-sm btn-warning"
-                      @click="Edit(ls)"
-                      data-bs-toggle="modal"
-                      data-bs-target="#student_cover_modal"
-                    >
-                      <i class="fas fa-image fa-fw"></i>
-                    </button> -->
                   </td>
                   <td>
                     <button
@@ -68,10 +59,6 @@
             <router-link class="btn btn-sm btn-success" to="tambah_tipe_kamar"
               >tambah kamar</router-link
             >
-            <!-- <button class="btn btn-sm btn-success">
-              <i class="fas fa-plus fa-fw"></i>
-              Tambah Kamar
-            </button> -->
           </div>
         </div>
       </div>
